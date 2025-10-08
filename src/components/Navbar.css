@@ -1,0 +1,72 @@
+/* Simple self-contained navbar for Quizard */
+
+.site-nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:1200;
+  background: linear-gradient(180deg, rgba(6,8,10,0.95), rgba(4,6,8,0.9));
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-bottom:1px solid rgba(255,255,255,0.03);
+  padding:10px 12px;
+}
+
+.nav-inner{
+  max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+
+.brand{color:var(--primary);font-weight:800;font-size:20px;text-decoration:none}
+
+.nav-links{display:flex;gap:12px;align-items:center}
+.nav-link{color:rgba(255,255,255,0.95);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
+.nav-link:hover{color:var(--primary);background:rgba(255,255,255,0.03)}
+
+.nav-toggle{display:none;background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:8px}
+.hamburger{display:inline-block;width:18px;height:2px;background:rgba(255,255,255,0.9);position:relative}
+.hamburger::before,.hamburger::after{content:'';position:absolute;left:0;right:0;height:2px;background:rgba(255,255,255,0.9)}
+.hamburger::before{top:-6px}
+.hamburger::after{bottom:-6px}
+
+@media (max-width:880px){
+  .nav-toggle{display:block}
+  .nav-toggle{order:2;margin-left:auto}
+  .nav-inner{gap:8px;position:relative}
+  /* make dropdown full width and sit below header */
+  .nav-links{
+    display:none;
+    flex-direction:column;
+    background:linear-gradient(180deg, rgba(6,6,6,0.99), rgba(12,12,12,0.98));
+    color: #fff;
+    padding:8px 12px;
+    margin-top:0;
+    border-radius:8px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    position:absolute;
+    left:0;right:0;
+    top:100%;
+    transform-origin:top center;
+  }
+  .nav-links.open{display:flex}
+  .nav-link{width:100%;padding:16px 14px;border-radius:6px;color:#fff}
+  .nav-link:hover{background:rgba(255,255,255,0.02);color:var(--primary)}
+  .brand{z-index:1200}
+  .nav-toggle{z-index:1300}
+  .nav-links{z-index:1400}
+}
+
+/* animation for opening/closing mobile menu */
+.nav-links{
+  transition:opacity .22s ease, transform .22s ease, visibility .22s;
+}
+.nav-links{opacity:1;transform:none;visibility:visible}
+.nav-links:not(.open){opacity:0;transform:translateY(-6px);visibility:hidden}
+
+.nav-link:focus{outline:2px solid rgba(0,229,255,0.14);outline-offset:3px}
+
+/* ensure open state overrides hidden on desktop */
+@media (min-width:881px){
+  .nav-links{opacity:1!important;transform:none!important;visibility:visible!important}
+}
+
+/* ensure page content isn't hidden under the navbar */
+.app-content{padding-top:84px}
