@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, Routes, Route, useSearchParams, useLocation, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useSearchParams, useLocation, Link } from 'react-router-dom'
 import Home from './pages/Home'
 import Topic from './pages/Topic'
 import Lobby from './pages/Lobby'
@@ -12,7 +12,7 @@ import './components/Navbar.css'
 
 export default function App(){
   return (
-    <HashRouter>
+    <BrowserRouter>
       <div className="app-shell">
         <NavBar />
         <main className="app-content">
@@ -30,7 +30,7 @@ export default function App(){
         </main>
         <Footer />
       </div>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
@@ -111,8 +111,7 @@ function RedirectRoom(){
     const params = new URLSearchParams()
     if (id) params.set('room', id)
     params.set('name', 'Host')
-    // redirect to hash-based route so direct shares work on static hosting
-    const to = `/#/lobby?${params.toString()}`
+  const to = `/lobby?${params.toString()}`
     // perform redirect
     window.location.replace(to)
   }, [loc])

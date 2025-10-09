@@ -63,8 +63,7 @@ export default function Lobby(){
   }
 
   const shareLink = () => {
-    // use hash based path so static hosts (like Vercel without SPA rewrites) open the client route
-    const link = `${location.origin}/#/lobby?room=${roomId}&name=${encodeURIComponent(playerName||'')}`
+  const link = `${location.origin}/lobby?room=${roomId}&name=${encodeURIComponent(playerName||'')}`
     try{ navigator.clipboard.writeText(link); alert('Share link copied') }catch(e){ prompt('Copy link', link) }
   }
 
