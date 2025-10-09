@@ -46,6 +46,8 @@ export default function Lobby(){
     socket.emit('createRoom', { name: playerName || 'Host', roomId: roomId || undefined, topicId: topic }, (res)=>{
       if (res && res.roomId) {
         setRoomId(res.roomId)
+        // we are the creator, mark ourselves as host immediately
+        if (socket && socket.id) setHostId(socket.id)
       }
     })
   }
@@ -86,7 +88,10 @@ export default function Lobby(){
         <div style={{display:'flex',gap:8,marginTop:12}}>
           <button className="btn" onClick={createRoom}>Create Room</button>
           <button className="btn" onClick={joinRoom}>Join Room</button>
-          {roomId && <button className="btn" onClick={shareLink}>Share Room</button>}
+          {/* only show share link to the host after the room is created/confirmed */}
+          {roomId && hostId && socket && socket.id === hostId && (
+            <button className="btn" onClick={shareLink}>Share Room</button>
+          )}
         </div>
 
         <div style={{marginTop:16}}>
